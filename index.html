@@ -1,244 +1,442 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assets/css/style.css" type="text/css">
-    <!--Bootstrap css-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <!--fontawsome-->
-    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.0.0/css/all.css"/>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="assets/css/style.css" type="text/css" />
+
+    <!-- Bootstrap css -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+      crossorigin="anonymous"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://site-assets.fontawesome.com/releases/v6.0.0/css/all.css"
+    />
+
     <title>Mystical Beauty</title>
-</head>
-<body>
-    <!--header-->
-    <header class="justify-content-center d-flex">
-        <div id="header" class="d-flex justify-content-between align-items-center">
-            <div id="logo" class="ms-4"><a href="index.html">Mystical <span class="purple">Beauty</span> </a></div>
-            <div id="desno" class="d-flex align-items-center">
-                <div id="nav" >
-                    <ul class="navbar d-flex ps-0 mb-0"></ul>
-                </div>
-                <div id="icons" class="me-3 d-flex align-items-center">
-                    <div class="icon-user">
-                        <span><i class="fa-thin fa-user fs-4 border rounded-5 p-2"></i></span>
-                    </div>
-                    <div class="header-icon-text-holder d-flex align-items-center ps-2">
-                        <span class="header-cart-icon"><i class="fa-thin fa-cart-shopping fs-4 border rounded-5 p-2"></i></span>
-                        
-                        <span class="header-cart-text d-flex flex-column fs-6 ps-2">
-                            <span>0 Products</span>
-                            <span><strong>$0,00</strong></span>
-                        </span>
-                </div>
-            </div>
+  </head>
+  <body>
+    <!-- header -->
+    <header class="header">
+      <div
+        id="header"
+        class="container d-flex align-items-center justify-content-between"
+      >
+        <!-- LEVA STRANA -->
+        <div class="header-left-side d-flex align-items-center">
+          <div id="logo">
+            <a href="index.html">
+              Mystical <span class="span-primary">Beauty</span>
+            </a>
+          </div>
+
+          <div id="nav">
+            <ul class="navbar d-flex ps-0 mb-0"></ul>
+          </div>
         </div>
+
+        <!-- SREDINA -->
+        <div id="header-center">
+          <a href="#" id="dailyTip"></a>
+          <button id="menu-toggle" type="button" class="ms-3">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+        </div>
+
+        <!-- DESNA STRANA -->
+        <div id="desno" class="d-flex align-items-center">
+          <div class="header-cart d-flex align-items-center position-relative">
+            <span
+              class="cart-icon d-flex align-items-center justify-content-center position-relative"
+            >
+              <a href="cart.html">
+                <i class="fa-thin fa-cart-shopping"></i>
+              </a>
+              <span class="cart-badge">0</span>
+            </span>
+
+            <span class="cart-text d-flex flex-column ms-2">
+              <span class="products-count">Products</span>
+              <span class="products-total"><strong>$0,00</strong></span>
+            </span>
+          </div>
+          
+        </div>
+      </div>
     </header>
-     <!-- login-form start-->
-     <div class="login-form-container d-flex align-items-center justify-content-center">
 
-        <div id="close-login-btn" class="fas fa-times"></div>
-
-        <form id="signIn" action="" method="get">
-            <h3>sign in</h3>
-            <div class="username">
-            <p class="mb-0">username</p>
-            <input type="name" name="login" class="box" placeholder="enter your username" id="login-name" required>
-            <span class="error-message pt-0" id="userNameError"></span></div>
-            <div class="password">
-            <p class="mb-0">password</p>
-            <input type="password" name="password" class="box" placeholder="enter your password" id="pass" required>
-            <span class="error-message pt-0" id="passwordError"></span></div>
-            <div class="checkbox d-flex align-items-center">
-                <input type="checkbox" name="checkbox" id="remember-me">
-                <label for="remember-me">remember me</label>
-            </div>
-            <button type="submit" class="btn3 pt-2 rounded-1 border-0 pb-2 fs-4 text-align-center w-100" id="sign-in-button">sign in</button>
-            <span class="successSubmit ms-2" id="success-message"></span>
-        </form>
-    </div>
-    <!-- login-form end-->
-    <!--cover-->
+    <!-- cover -->
     <section id="cover">
-        <div id="bg" class="d-flex align-items-center justify-content-baseline">
-            <div class="container ms-5 me-0 title">
-                <h1 class="fs-2">Welcome to our <span class="dark">mystical</span> paradise!</h1>
-                <h5 class="fs-5">Our website invites you to discover the artistry of self-love through carefully selected beauty potions and elixirs. Unveil the mystery of our makeup collection, which celebrates diversity and empowers you to express your unique, mystical beauty.</h5>
-                <a href="#" class="btn border ps-4 pe-4 mt-2">latest</a>
-            </div>
-        </div>
-    </section>
-    <section id="articles" class="d-flex flex-column justify-content-center">
-        <div class="title1 text-center mt-5 purple">
-                <h1>latest products</h1>
-                <p>new collection</p>
-        </div>
+      <div id="bg" class="d-flex align-items-center">
         <div class="container">
-            <div class="row articles d-flex justify-content-center align-items-center"></div>
+          <div class="row">
+            <div class="col-12 col-lg-6 ms-lg-5 title">
+              <h1 class="fs-2">
+                Welcome to our
+                <span class="span-primary">mystical</span> paradise!
+              </h1>
+              <h5 class="fs-5">
+                Unveil the mystery of our makeup collection, which celebrates
+                diversity and empowers you to express your unique, mystical
+                beauty.
+              </h5>
+              <a href="shop.html" class="button button-primary mt-2"
+                >Shop Now</a
+              >
+              <a href="#latest" class="button button-outline mt-2">Latest</a>
+            </div>
+          </div>
         </div>
-        <a class="btn2 mt-5 text-center border mb-5" href="shop.html">view all products</a>
+      </div>
     </section>
-    <section id="photo-panel" class="mt-5 mb-5">
-        <div class="container-fluid p-0">
-            <div class="row d-flex justify-content-center">
-        <div class="panel d-flex align-items-center">
-            <div class="levo col-md-6 col-sm-12">
-            <img src="assets/img/panel.jpg" alt="">
+
+    <!-- latest -->
+    <section id="latest" class="d-flex flex-column justify-content-center">
+      <div class="title1 text-center mt-5 mb-4 span-primary">
+        <h1>latest products</h1>
+        <p>new collection</p>
+      </div>
+
+      <div class="container">
+        <div
+          class="row articles justify-content-center align-items-center mb-5"
+        ></div>
+      </div>
+    </section>
+
+    <!-- discover more -->
+    <div class="container">
+      <hr class="section-line" />
+
+      <div class="discover-more">
+        <div
+          class="row justify-content-center align-items-center text-center gy-4"
+        >
+          <div class="col-12 col-md-3">
+            <a href="shop.html?category=1" class="category-link">
+              <i class="fa-solid fa-paintbrush"></i>
+              <span>Makeup</span>
+            </a>
+          </div>
+
+          <div class="col-12 col-md-4 d-flex align-items-center flex-column">
+            <p class="view-more-text">Discover more beauty essentials</p>
+            <a
+              class="button button-primary mt-3 text-center border mb-3"
+              href="shop.html"
+            >
+              view all products
+            </a>
+          </div>
+
+          <div class="col-12 col-md-3">
+            <a href="shop.html?category=2" class="category-link">
+              <i class="fa-solid fa-spa"></i>
+              <span>Skin Care</span>
+            </a>
+          </div>
         </div>
-        <div class="right ps-4 pe-4 col-md-6 col-sm-12">
-            <h2>best savings on new arrivals</h2>
-            <p id="pocetniTekst" class="pt-2">Indulge in beauty without compromising your budget! Uncover irresistible deals on our newest makeup and skincare arrivals. Elevate your routine with quality products that won't break the bank. Your radiant glow just got more affordable. <span id="readMore" onclick="prikaziDodatniTekst()">Read more</span></p>
-            <p id="dodatniTekst" style="display: none;">Why settle for ordinary when you can have extraordinary? Don't miss out on the chance to redefine your beauty journey! <span id="readLess" onclick="sakrijDodatniTekst()">Read less</span></p>
-            <a href="shop.html" class="btn3 border me-2 pe-4 ps-4 pt-2 pb-2">shop now</a>
-            <a href="" class="btn4 border p-2 pe-4 ps-4 pt-2 pb-2">contact us</a>
-        </div>
+      </div>
+
+      <hr class="section-line" />
     </div>
-</div>
-</div>
+
+    <!-- photo panel -->
+    <section id="photo-panel">
+      <div class="container p-0">
+        <div class="row justify-content-center align-items-center g-4">
+          <div class="col-12 col-md-6 text-center">
+            <div class="levo w-100">
+              <img
+                src="assets/img/panel-img.png"
+                alt="pittoresco"
+                class="img-fluid"
+              />
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6">
+            <div class="right ps-md-4 pe-md-4 w-100">
+              <h2>best savings on new arrivals</h2>
+              <p id="pocetniTekst" class="pt-2">
+                Indulge in beauty without compromising your budget! Uncover
+                irresistible deals on our newest makeup and skincare arrivals.
+                Elevate your routine with quality products that won't break the
+                bank. Your radiant glow just got more affordable.
+                <span id="readMore">read more</span>
+              </p>
+              <p id="dodatniTekst" style="display: none">
+                Why settle for ordinary when you can have extraordinary? Don't
+                miss out on the chance to redefine your beauty journey!
+                <span id="readLess">read less</span>
+              </p>
+
+              <div class="d-flex flex-wrap gap-2">
+                <a
+                  href="shop.html"
+                  class="button button-outline border pe-4 ps-4 pt-2 pb-2"
+                >
+                  shop now
+                </a>
+                <a
+                  href="index.html#contact"
+                  class="button button-primary border pe-4 ps-4 pt-2 pb-2"
+                >
+                  contact us
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
+
+    <!-- all products -->
+    <section id="AllProducts" class="d-flex flex-column justify-content-center">
+      <div class="title1 text-center mb-4 mt-5 span-primary">
+        <h1>Products</h1>
+        <p>best products</p>
+      </div>
+
+      <div class="container">
+        <div class="row g-4 align-items-start">
+          <div class="col-12 col-lg-9">
+            <div class="products g-4 row justify-content-center"></div>
+          </div>
+
+          <div class="col-12 col-lg-3">
+            <div class="sidebar mt-5 mt-lg-0">
+              <div id="sidebar-bg">
+                <div
+                  class="sidebar-content d-flex flex-column align-items-center pt-3"
+                >
+                  <p class="sidebar-subtitle text-center">New Collection</p>
+
+                  <h3 class="sidebar-title text-center">
+                    Glow with <br />
+                    Confidence
+                  </h3>
+
+                  <p class="sidebar-text text-center">
+                    Discover skincare and beauty essentials made to highlight
+                    your natural glow.
+                  </p>
+
+                  <a href="shop.html" class="button button-primary sidebar-btn">
+                    Shop Now
+                  </a>
+                </div>
+
+                <div class="sidebar-banner">
+                  <img
+                    src="assets/img/sidebar.png"
+                    alt="sidebar banner"
+                    class="img-fluid"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- about -->
     <section id="about">
-        <div class="title1 text-center mt-5 mb-5 purple">
-            <h1>why shop with us</h1>
-            <p>our services</p>
+      <div class="title1 text-center mt-5 mb-5 span-primary">
+        <h1>why shop with us</h1>
+        <p>our services</p>
+      </div>
+
+      <div class="container">
+        <div class="row g-4">
+          <div class="col-12 col-md-4 text-center">
+            <div class="box border h-100">
+              <div class="icon-box">
+                <i class="fa-thin fa-truck-fast fs-1"></i>
+              </div>
+              <div class="detail-box mt-2">
+                <h5>fast delivery</h5>
+                <p class="fs-5">Just a day away from your doorstep!</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-4 text-center">
+            <div class="box border h-100">
+              <div class="icon-box">
+                <i class="fa-thin fa-envelope-open-dollar fs-1"></i>
+              </div>
+              <div class="detail-box mt-2">
+                <h5>free shipping</h5>
+                <p class="fs-5">Shipping cost is fully covered!</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-4 text-center">
+            <div class="box border h-100">
+              <div class="icon-box">
+                <i class="fa-sharp fa-thin fa-award fs-1"></i>
+              </div>
+              <div class="detail-box mt-2">
+                <h5>best quality</h5>
+                <p class="fs-5">We choose our products carefully!</p>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="container">
-        <div class="row">
-            <div class="col-md-4 text-center">
-                <div class="box">
-                    <div class="icon-box">
-                        <i class="fa-thin fa-truck-fast fs-1"></i>
-                    </div>
-                    <div class="detail-box mt-2">
-                        <h5>fast delivery</h5>
-                        <p class="fs-5">Your order is just a day away from your doorstep!</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 text-center">
-                <div class="box">
-                    <div class="icon-box">
-                        <i class="fa-thin fa-envelope-open-dollar fs-1"></i>
-                    </div>
-                    <div class="detail-box mt-2">
-                        <h5>free shipping</h5>
-                        <p class="fs-5">You don't have to worry, shipping cost is fully covered!</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 text-center">
-                <div class="box">
-                    <div class="icon-box">
-                        <i class="fa-sharp fa-thin fa-award fs-1"></i>
-                    </div>
-                    <div class="detail-box mt-2">
-                        <h5>best quality</h5>
-                        <p class="fs-5">We choose our products carefully and get the best quality!</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+      </div>
     </section>
-    <section id="favorite" class="d-flex flex-column justify-content-center">
-        <div class="title1 text-center mt-5 purple">
-                <h1>Customers favorite</h1>
-                <p>best products</p>
-        </div>
-        <div class="container">
-            <div class="row customers d-flex justify-content-center align-items-center">
-        </div></div>
-        <a class="btn2 mt-5 text-center border " href="shop.html">view all products</a>
-    </section>
+
+    <!-- contact -->
     <section id="contact">
-        <div class="title1 text-center mt-5 mb-5 purple">
-            <h1>Contact us</h1>
-            <p>fast response</p>
-    </div>
-        <div class="container">
-            <div class="row">
-                <div id="img-fluid" class="col-6">
-                    <img src="assets/img/contact-img.jpg" alt="">
+      <div class="title1 text-center mt-5 mb-5 span-primary">
+        <h1>Contact us</h1>
+        <p>fast response</p>
+      </div>
+
+      <div class="container">
+        <div class="row g-4 align-items-center">
+          <div id="img-fluid" class="col-12 col-lg-6">
+            <img
+              src="assets/img/contact-img.jpg"
+              alt="contact"
+              class="img-fluid"
+            />
+          </div>
+
+          <div id="form" class="col-12 col-lg-6">
+            <form id="myForm" method="get">
+              <div class="row">
+                <div class="col-12 col-md-6 mb-3">
+                  <label for="first-name" class="mb-2">First name:</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    id="first-name"
+                    name="name"
+                    placeholder="enter your name..."
+                    required
+                  />
+                  <span class="error-message" id="nameError"></span>
                 </div>
-                <div id="form" class="col-6">
-                    <form id="myForm" method="get">
-                        <div class="form-group d-flex col-12">
-                            <div class="firstName col-6">
-                                <label for="name">Name:</label>
-                                <input type="text" id="name" name="name" placeholder="enter your name..." required>
-                                <span class="error-message" id="nameError"></span>
-                            </div>
-                            <div class="last-name col-6">
-                                <label for="last-name">Last name:</label>
-                                <input type="text" id="last-name" name="last-name" placeholder="enter your last name..." required>
-                                <span class="error-message" id="lastNameError"></span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email:</label>
-                            <input type="email" name="email" id="email" placeholder="enter your email..." required>
-                            <span class="error-message" id="emailError"></span>
-                        </div>
-                        <div class="form-group">
-                            <label>Gender:</label>
-                            <div class="gender-group mt-2">
-                                <input type="radio" name="gender" id="male" value="male" required>
-                                <label for="male">Male</label>
-                                <input type="radio" name="gender" id="female" value="female" required>
-                                <label for="female">Female</label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Message:</label>
-                            <textarea name="message" id="message" rows="4" placeholder="enter your message..." required></textarea>
-                            <span class="error-message" id="messageError"></span>
-                        </div>
-                        <div class="form-group d-flex justify-content-center\">
-                            <button type="submit" id="form-submit" class="btn2 mt-2 text-center border ">Submit</button>
-                            <span class="successSubmit ms-2" id="success-message2"></span>
-                        </div>
-                    </form>
+
+                <div class="col-12 col-md-6 mb-3">
+                  <label for="last-name" class="mb-2">Last name:</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    id="last-name"
+                    name="last-name"
+                    placeholder="enter your last name..."
+                    required
+                  />
+                  <span class="error-message" id="lastNameError"></span>
                 </div>
-            </div>
+              </div>
+
+              <div class="form-group mb-3">
+                <label for="email" class="mb-2">Email:</label>
+                <input
+                  class="form-control"
+                  type="email"
+                  name="email"
+                  id="email"
+                  placeholder="enter your email..."
+                  autocomplete="email"
+                  required
+                />
+                <span class="error-message" id="emailError"></span>
+              </div>
+
+              <div class="form-group mb-3">
+                <label for="message" class="mb-2">Message:</label>
+                <textarea
+                  class="form-control"
+                  name="message"
+                  id="message"
+                  rows="4"
+                  placeholder="enter your message..."
+                  required
+                ></textarea>
+                <span class="error-message" id="messageError"></span>
+              </div>
+
+              <div class="form-group d-flex justify-content-center">
+                <button
+                  type="submit"
+                  id="form-submit"
+                  class="form-control mt-2 button button-outline text-center border"
+                >
+                  Submit
+                </button>
+              </div>
+
+              <span class="successSubmit mt-5" id="success-message"></span>
+            </form>
+          </div>
         </div>
+      </div>
     </section>
-    <footer id="footer" class="mt-5">
-        
-        <div class="container d-flex">
-            <div id="logo" class="ms-4"><a href="index.html">Mystical <span class="purple">Beauty</span> </a></div>
-    <div class="footer-nav">
-            <ul class="footer-navbar mb-0 ps-0 d-flex"></ul>
+
+    <!-- footer -->
+    <footer id="footer" class="mt-5 d-flex justify-content-center">
+      <div class="container">
+        <div class="row align-items-center text-center text-lg-start gy-3">
+          <div class="col-12 col-lg-4">
+            <div class="footer-nav">
+              <ul
+                class="footer-navbar mb-0 ps-0 d-flex flex-wrap justify-content-center justify-content-lg-start"
+              ></ul>
+            </div>
+          </div>
+
+          <div class="col-12 col-lg-4">
+            <div class="flex-column">
+              <div id="link-to-center" class="text-center">
+                <a href="#" target="_blank">Documentation</a>
+              </div>
+              <div class="copy">
+                <p class="mb-0">
+                  Copyright &copy; 2026 Mystical Beauty. All Rights Reserved.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-lg-4">
+            <div
+              id="socialIcons"
+              class="d-flex justify-content-center justify-content-lg-end"
+            ></div>
+          </div>
         </div>
-         
-          <div id="socialIcons"></div>
-        </div>
-        <hr class="white-line">
-        <div id="link-to-center">
-            <a href="#" target="_blank">Documentation</a>
-        </div>
-        <div class="copy">
-            <p>Copyright &copy; 2024 Mystical Beauty. All Rights Reserved.</p>
-        </div>
-      </footer>
+      </div>
+    </footer>
 
-
-
-
-
-
-
-
-
-
-
-
-    <!--jquery-->
+    <!-- jquery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="assets/js/jquery.js" type="text/javascript"></script>
-    <!--Bootstrap js-->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
-    <!--JS-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"> </script>
+
+    <!-- Bootstrap js -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
+      integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- JS -->
     <script src="assets/js/main.js" type="text/javascript"></script>
-</body>
+  </body>
 </html>
