@@ -19,7 +19,7 @@
       src="https://kit.fontawesome.com/68cdbeed89.js"
       crossorigin="anonymous"
     ></script>
-    <title>Mystical Beauty</title>
+    <title>Mystical Beauty - SHOP</title>
   </head>
   <body>
     <!--header-->
@@ -70,75 +70,44 @@
       </div>
     </header>
 
-    <main id="cart-page" class="container my-5">
-      <div class="row">
-        <!-- LEVA STRANA - proizvodi -->
-        <div class="col-lg-8">
-          <div class="cart-wrapper p-4 shadow-sm rounded-4 bg-white">
-            <div class="cart-header mb-4">
-              <h1 class="mb-2">Shopping Cart</h1>
-              <p class="text-muted mb-0">
-                Review your selected products before checkout.
-              </p>
-            </div>
+ <!-- AUTHOR -->
+<section id="author" class="author-section py-5">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h1 class="span-primary">About the Author</h1>
+      <p class="text-muted mb-0">student profile</p>
+    </div>
 
-            <!-- Ovde ti JS ubacuje proizvode -->
-            <div id="cartItems" class="cart-items d-flex flex-column gap-3">
-              
-            </div>
+    <div class="author-card shadow-sm rounded-4 overflow-hidden">
+      <div class="row g-0 align-items-center">
+        
+        <!-- Leva strana - slika -->
+        <div class="col-12 col-md-5 text-center author-image-wrapper">
+          <img
+            src=""
+            alt="Author"
+            class="img-fluid author-image"
+          />
+        </div>
 
-            <!-- ako je korpa prazna -->
-            <div
-              id="emptyCartMessage"
-              class="empty-cart text-center py-5 d-none"
-            >
-              <h3 class="mb-3">Your cart is empty</h3>
-              <p class="text-muted mb-4">
-                Looks like you haven’t added anything yet.
-              </p>
-              <a href="shop.html" class="btn btn-dark px-4 py-2 rounded-pill">
-                Continue Shopping
-              </a>
+        <!-- Desna strana - podaci -->
+        <div class="col-12 col-md-7">
+          <div class="author-content p-4 p-lg-5">
+            <h2 class="mb-4">Info</h2>
+
+            <div class="author-info mb-4">
+              <p><span class="info-label">Name:</span> Zorka</p>
+              <p><span class="info-label">Surname:</span> Grčić</p>
+              <p><span class="info-label">Index number:</span> 53/22</p>
+              <p><span class="info-label">School:</span> ICT College</p>
             </div>
           </div>
         </div>
 
-        <!-- DESNA STRANA - summary -->
-        <div class="col-lg-4 mt-4 mt-lg-0">
-          <aside class="cart-summary p-4 shadow-sm rounded-4 bg-white">
-            <h3 class="mb-4">Order Summary</h3>
-
-            <div class="summary-row d-flex justify-content-between mb-3">
-              <span>Subtotal</span>
-              <span id="cartSubtotal">$0.00</span>
-            </div>
-
-            <div class="summary-row d-flex justify-content-between mb-3">
-              <span>Discount</span>
-              <span id="cartDiscount">$0.00</span>
-            </div>
-
-            <hr />
-
-            <div
-              class="summary-total d-flex justify-content-between align-items-center mb-4"
-            >
-              <strong>Total</strong>
-              <strong id="cartTotal">$0.00</strong>
-            </div>
-
-            <button class="checkout-btn w-100 mb-3">Proceed to Checkout</button>
-            <a
-              href="shop.html"
-              class="continue-shopping d-block text-center text-decoration-none"
-            >
-              Continue Shopping
-            </a>
-          </aside>
-        </div>
       </div>
-    </main>
-
+    </div>
+  </div>
+</section>
     <footer id="footer" class="mt-5 d-flex justify-content-center">
       <div class="container">
         <div class="row align-items-center text-center text-lg-start gy-3">
@@ -172,7 +141,6 @@
         </div>
       </div>
     </footer>
-
     <!--jquery-->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 

@@ -118,9 +118,6 @@ li {
   margin-top: 50px;
 }
 
-/* =========================
-   HEADER / NAVIGATION
-========================= */
 
 /* =========================
    HEADER / NAVIGATION
@@ -134,7 +131,6 @@ li {
   backdrop-filter: blur(2px);
   
 }
-
 #header {
   min-height: 75px;
   gap: 20px;
@@ -338,7 +334,7 @@ header.scrolled {
 ========================= */
 
 .title {
-  width: 500px !important;
+
   animation: fadeBlur 1s ease forwards;
 }
 
@@ -767,7 +763,7 @@ header.scrolled {
 }
 
 .continue-shopping {
-  color: #b94b6f;
+  color: var(--primary);
   font-weight: 500;
 }
 
@@ -977,6 +973,59 @@ textarea {
   height: auto;
 }
 
+/* AUTHOR */
+.author-section {
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+}
+
+.author-card {
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.author-image-wrapper {
+  background: linear-gradient(
+    135deg,
+    rgba(206, 180, 255, 0.35),
+    rgba(255, 205, 230, 0.35)
+  );
+  padding: 40px 20px;
+}
+
+.author-image {
+  max-width: 320px;
+  width: 100%;
+  border-radius: 24px;
+  object-fit: cover;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+.author-content h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #5d5c5c;
+}
+
+.author-info p {
+  font-size: 1.05rem;
+  margin-bottom: 12px;
+  color: #444;
+}
+
+.info-label {
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.author-text {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: #666;
+}
+
+
 /* =========================
    FOOTER
 ========================= */
@@ -1143,6 +1192,13 @@ footer {
 
   .shopProducts .artical {
     padding: 14px;
+  }
+  .author-image {
+    max-width: 240px;
+  }
+
+  .author-content {
+    text-align: center;
   }
 }
 

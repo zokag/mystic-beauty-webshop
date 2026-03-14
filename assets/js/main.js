@@ -8,9 +8,10 @@ $(document).ready(function () {
 
   // funkcije na svim stranicama
   allPagesInitFunctions();
-  $("#menu-toggle").click(function(){
-  $("#nav").toggleClass("active");
-});
+  bindEvents();
+  $("#menu-toggle").click(function () {
+    $("#nav").toggleClass("active");
+  });
 
   // funkcije samo za početnu stranicu
   if (page === "" || page === "index.html") {
@@ -26,10 +27,15 @@ $(document).ready(function () {
   //funkcije za shop stranicu
   if (page === "shop.html") {
     initPageData();
-    bindEvents();
+    
   }
-});
 
+  if (page === "cart.html") {
+    initPageData();
+  }
+
+  updateCartCount();
+});
 
 // AJAX
 function ajaxCallback(url, result) {
@@ -200,6 +206,31 @@ function bindEvents() {
   $(document).on("change", "#subcategoryFilter", function () {
     getFilteredProducts();
   });
+
+  $(document).on("click", ".addToCart", function (e) {
+    e.preventDefault();
+
+    let id = $(this).data("id");
+    // console.log(id)
+    addToCart(id);
+  });
+
+  $(document).on("click", ".remove-btn", function(){
+    let id = $(this).data("id");
+
+    removeFromCart(id);
+
+  })
+
+  $(document).on("click", ".btn-plus", function(){
+    let id = $(this).data("id");
+    increaseQuantity(id);
+  })
+
+  $(document).on("click", ".btn-minus", function(){
+    let id = $(this).data("id");
+    decreaseQuantity(id);
+  })
 }
 
 //dohvatanje podataka iz json fajlova products i categories i funkcije za prikaz proizvoda
@@ -228,6 +259,10 @@ function initPageData() {
           loadCategoryDropdown();
           loadSubcategories();
           getFilteredProducts();
+        }
+        if (page === "cart.html") {
+          showCart();
+          
         }
       });
     });
@@ -289,13 +324,13 @@ function loadCategoryDropdown() {
   }
 }
 
-function countProductsByCategory(categoryId){
+function countProductsByCategory(categoryId) {
   let count = 0;
-  allProducts.forEach(function(product){
-    if(product.categoryId == categoryId){
+  allProducts.forEach(function (product) {
+    if (product.categoryId == categoryId) {
       count++;
     }
-  })
+  });
   return count;
 }
 
@@ -428,7 +463,6 @@ function showShopProducts(products) {
     return $(".product-count").html(`Number of Products: ${numberOfProducts}`);
   }
 
-
   $(".product-count").html(`Number of Products: ${numberOfProducts}`);
   noResults.addClass("hidden");
 
@@ -486,7 +520,7 @@ function renderProductHTML(product) {
 
           ${renderRating(product.rating, product.reviews)}
 
-          ${renderAddToCartButton(product.stock)}
+          ${renderAddToCartButton(product.stock, product.id)}
       </div>
     </div>`;
 }
@@ -592,7 +626,7 @@ function renderSingleProductHTML(product) {
 
         </div>
 
-        ${renderAddToCartButton(product.stock)}
+        ${renderAddToCartButton(product.stock, product.id)}
 
     </div>
 
@@ -600,6 +634,13 @@ function renderSingleProductHTML(product) {
 
 </div>
   `;
+}
+
+//find product by id
+function findProductById(id) {
+  return allProducts.find(function (p) {
+    return p.id == id;
+  });
 }
 
 // one product tabs
@@ -663,15 +704,173 @@ function renderStock(stock) {
   return `<p class="in-stock"><i class="fa-thin fa-check"></i> In stock</p>`;
 }
 
+//KORPA!!
 // add to cart btn
-function renderAddToCartButton(stock) {
+function renderAddToCartButton(stock, productId) {
   const url = window.location.pathname.split("/").pop();
   if (url === "product.html" || url === "shop.html") {
     if (!stock.available || stock.quantity == 0) {
       return `<button class="button disabled" disabled>Out of stock</button>`;
     }
-    return `<button class="button button-outline">Add to cart</button>`;
+    return `<button class="addToCart button button-outline" data-id="${productId}">Add to cart</button>`;
   }
 
   return "";
 }
+
+//dodajemo u local storage
+function addToCart(productId) {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  let existingProduct = cart.find(function (item) {
+    return item.id == productId;
+  });
+
+  if (existingProduct) {
+    existingProduct.quantity++;
+  } else {
+    cart.push({
+      id: productId,
+      quantity: 1,
+    });
+  }
+
+  localStorage.setItem("cart", JSON.stringify(cart));
+  updateCartCount();
+  updateCartSummary();
+}
+
+//get cart
+function getCart() {
+  return JSON.parse(localStorage.getItem("cart")) || [];
+}
+
+//prikaz proizvoda iz korpe
+function showCart() {
+  let cart = getCart();
+  let html = ``;
+
+  if (cart.length === 0) {
+    $("#cartItems").html(`<p>Your cart is empty. <a href="shop.html" class="button continue-shopping">shop now</a></p>`);
+    return;
+  }
+  cart.forEach(function (item) {
+    let product = findProductById(item.id);
+     let finalPrice = getFinalPrice(product.price.base, product.price.discount);
+    
+    html += `
+      <div class="cart-item d-flex align-items-center justify-content-between p-3 border rounded-4 mb-3">
+        <div class="d-flex align-items-center gap-3">
+          <img src="${product.image}" alt="${product.name}" class="cart-item-img" />
+          <div>
+            <h5 class="mb-1">${product.name}</h5>
+            <p class="mb-1 text-muted">${getCategoryName(product.categoryId)}</p>
+            <span class="fw-semibold">$${finalPrice.toFixed(2)}</span>
+          </div>
+        </div>
+
+        <div class="cart-item-actions d-flex align-items-center gap-3">
+          <div class="quantity-box d-flex align-items-center">
+            <button class="quantity-btn btn-minus" data-id="${product.id}" ${item.quantity<=1 ? "disabled" : ""}>-</button>
+            <span class="quantity-value px-3">${item.quantity}</span>
+            <button class="quantity-btn btn-plus" data-id="${product.id}" ${item.quantity >= 5 ? "disabled" : ""}>+</button>
+          </div>
+          <button class="remove-btn" data-id="${product.id}">Remove</button>
+        </div>
+      </div>
+    `;
+
+    
+  });
+  
+  $("#cartItems").html(html);
+  updateCartSummary();
+}
+
+function updateCartCount() {
+  let cart = getCart();
+
+  let count = 0;
+
+  cart.forEach(function (item) {
+    count += item.quantity;
+  });
+
+  $(".cart-badge").text(count);
+}
+
+function updateCartSummary() {
+
+  let cart = getCart();
+
+  let subtotal = 0;
+  let discount = 0;
+
+  cart.forEach(function(item){
+
+    let product = findProductById(item.id);
+
+    if(!product) return;
+
+    let basePrice = product.price.base;
+    let finalPrice = getFinalPrice(product.price.base, product.price.discount);
+
+    subtotal += basePrice * item.quantity;
+
+    discount += (basePrice - finalPrice) * item.quantity;
+
+  });
+
+  let total = subtotal - discount;
+
+  $("#cartSubtotal").text("$" + subtotal.toFixed(2));
+  $("#cartDiscount").text("$" + discount.toFixed(2));
+  $("#cartTotal").text("$" + total.toFixed(2));
+}
+
+//remove
+
+function removeFromCart(productId){
+  let cart =getCart();
+  cart = cart.filter(function(item){
+    return item.id != productId;
+  
+  })
+  localStorage.setItem("cart", JSON.stringify(cart))
+  showCart();
+  updateCartCount();
+  updateCartSummary();
+}
+
+//Increase dugme
+function increaseQuantity(id){
+  let cart = getCart();
+
+  cart.forEach(function(item){
+    if(item.id == id){
+      item.quantity++
+    }
+    
+  })
+  localStorage.setItem("cart", JSON.stringify(cart))
+
+  showCart();
+  updateCartCount();
+  updateCartSummary();
+}
+
+//Decrease dugme
+function decreaseQuantity(id){
+  let cart = getCart();
+
+  cart.forEach(function(item){
+    if(item.id == id && item.quantity>1){
+      item.quantity--
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart))
+    showCart();
+    updateCartCount()
+    updateCartSummary();
+  })
+}
+
