@@ -1,0 +1,14 @@
+[
+    {
+        "naslov":"Home",
+        "href":"index.html"
+    },
+    {
+        "naslov":"Shop",
+        "href":"shop.html"
+    },
+    {
+        "naslov":"Author",
+        "href":"author.html"
+    }
+]

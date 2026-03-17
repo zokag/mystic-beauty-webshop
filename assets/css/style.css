@@ -113,11 +113,9 @@ li {
   margin: 0;
 }
 
-
 .discover-more {
   margin-top: 50px;
 }
-
 
 /* =========================
    HEADER / NAVIGATION
@@ -129,7 +127,6 @@ li {
   width: 100%;
   z-index: 10;
   backdrop-filter: blur(2px);
-  
 }
 #header {
   min-height: 75px;
@@ -232,7 +229,6 @@ header.scrolled {
   backdrop-filter: blur(8px);
 }
 
-
 /* =========================
    HEADER CART
 ========================= */
@@ -334,7 +330,6 @@ header.scrolled {
 ========================= */
 
 .title {
-
   animation: fadeBlur 1s ease forwards;
 }
 
@@ -423,7 +418,6 @@ header.scrolled {
   transform: translateY(-6px);
 }
 
-
 .artical {
   border: 1px solid #ececec;
   border-radius: 16px;
@@ -460,7 +454,6 @@ header.scrolled {
   -webkit-box-orient: vertical;
   overflow: hidden;
   margin-bottom: 15px;
-
 }
 
 /* =========================
@@ -667,7 +660,6 @@ header.scrolled {
   border-radius: 16px;
   height: 100%;
   box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
-  
 }
 
 .filters h3 {
@@ -748,7 +740,7 @@ header.scrolled {
 .remove-btn {
   border: none;
   background: transparent;
-  color: #b94b6f;
+  color: var(--primary);
   font-weight: 500;
   cursor: pointer;
 }
@@ -771,6 +763,15 @@ header.scrolled {
   font-size: 28px;
 }
 
+.danger-msg {
+  color: var(--danger);
+
+  transition: 0.3s;
+}
+
+.danger-msg.show {
+  opacity: 1;
+}
 
 /* =========================
    RATING
@@ -888,8 +889,6 @@ header.scrolled {
    IMAGE + TEXT SECTION
 ========================= */
 
-
-
 .levo img {
   max-width: 70%;
   height: auto;
@@ -897,7 +896,6 @@ header.scrolled {
 
 #photo-panel {
   margin: 0;
-
 }
 
 .right {
@@ -966,8 +964,6 @@ textarea {
   font-size: 0.95rem;
 }
 
-
-
 #contact img {
   width: 100%;
   height: auto;
@@ -980,17 +976,17 @@ textarea {
   align-items: center;
 }
 
+.author-subtitle{
+  color: var(--primary);
+  
+}
+
 .author-card {
   background: #fff;
   border: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 .author-image-wrapper {
-  background: linear-gradient(
-    135deg,
-    rgba(206, 180, 255, 0.35),
-    rgba(255, 205, 230, 0.35)
-  );
   padding: 40px 20px;
 }
 
@@ -1004,8 +1000,20 @@ textarea {
 
 .author-content h2 {
   font-size: 2rem;
-  font-weight: 600;
   color: #5d5c5c;
+}
+
+.author-section h1 {
+  font-weight: 100;
+}
+.author-content {
+  background: linear-gradient(
+    135deg,
+    rgba(206, 180, 255, 0.35),
+    rgba(255, 205, 230, 0.35)
+  );
+  border-radius: 24px;
+  margin-right: 50px;
 }
 
 .author-info p {
@@ -1025,49 +1033,53 @@ textarea {
   color: #666;
 }
 
-
 /* =========================
    FOOTER
 ========================= */
 
-footer {
-  background-color: var(--black);
-}
-
 #footer {
-  padding: 40px 0;
-  text-align: center;
+  background-color: #f8f5f7;
+  border-top: 1px solid #e9e1e6;
 }
 
-
-#link-to-center a,
-.copy p,
-.footer-navbar,
-#socialIcons i {
-  color: #fff;
+#footer h6 {
+  font-weight: 600;
+  color: #222;
 }
 
-.link-to-center {
-  color: #fff;
+#footer p,
+#footer a {
+  font-size: 15px;
 }
 
-.footer-nav li a {
-  font-size: 16px;
-  color: var(--light);
+#footer a {
+  text-decoration: none;
+  color: #444;
+  transition: 0.3s;
 }
 
-.footer-nav li:last-child {
-  margin-right: 0;
-}
-
-#socialIcons i {
-  padding: 0.5rem;
-}
-
-#socialIcons i:hover {
+#footer a:hover {
   color: var(--primary);
-  transition: all 0.2s ease-in;
-  transition: all 0.2s ease-out;
+}
+
+#socialIcons a {
+  font-size: 22px;
+  color: #444;
+  transition: 0.3s;
+}
+
+#socialIcons a:hover {
+  color: var(--primary);
+}
+
+.footer-navbar {
+  list-style: none;
+  gap: 14px;
+}
+
+.copy p {
+  font-size: 14px;
+  color: #666;
 }
 
 /* =========================
@@ -1075,7 +1087,6 @@ footer {
 ========================= */
 
 @media (max-width: 991.98px) {
-
   #header {
     min-height: auto;
     padding-top: 12px;
@@ -1199,6 +1210,7 @@ footer {
 
   .author-content {
     text-align: center;
+    margin-right: 0px;
   }
 }
 

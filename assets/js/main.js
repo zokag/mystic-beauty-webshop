@@ -6,35 +6,18 @@ let subcategoriesData = [];
 $(document).ready(function () {
   let page = window.location.pathname.split("/").pop();
 
-  // funkcije na svim stranicama
   allPagesInitFunctions();
   bindEvents();
+
   $("#menu-toggle").click(function () {
     $("#nav").toggleClass("active");
   });
 
-  // funkcije samo za početnu stranicu
+  initPageData();
+
   if (page === "" || page === "index.html") {
-    initPageData();
     indexInitFunctions();
   }
-
-  //funkcije za product stranicu
-  if (page === "product.html") {
-    initPageData();
-  }
-
-  //funkcije za shop stranicu
-  if (page === "shop.html") {
-    initPageData();
-    
-  }
-
-  if (page === "cart.html") {
-    initPageData();
-  }
-
-  updateCartCount();
 });
 
 // AJAX
@@ -56,32 +39,31 @@ function ajaxCallback(url, result) {
 function allPagesInitFunctions() {
   // Menu
   function initMenu() {
-    ajaxCallback("assets/data/meni.json", function (result) {
+    ajaxCallback("assets/data/navbar.json", function (result) {
       showNavigation(result);
     });
   }
 
   // Social Icons
   function initSocialIcons() {
-    const socialMediaIcons = ["facebook", "twitter", "instagram"];
+    const socialMediaIcons = {
+      facebook: "https://www.facebook.com/",
+      twitter: "https://www.twitter.com/",
+      instagram: "https://www.instagram.com/",
+    };
     const socialIconsDiv = document.getElementById("socialIcons");
 
-    socialMediaIcons.forEach((icon) => {
+    for (let icon in socialMediaIcons) {
       const iconElement = document.createElement("i");
       iconElement.classList.add("fs-3", "fab", "fa-" + icon);
 
       const link = document.createElement("a");
-      link.href =
-        icon === "facebook"
-          ? "https://www.facebook.com/"
-          : icon === "twitter"
-            ? "https://www.twitter.com/"
-            : "https://www.instagram.com/";
+      link.href = socialMediaIcons[icon];
       link.target = "_blank";
       link.appendChild(iconElement);
 
       socialIconsDiv.appendChild(link);
-    });
+    }
   }
 
   // Sticky Header
@@ -151,7 +133,7 @@ function indexInitFunctions() {
 
       if (!nameRegex.test(firstName)) {
         $("#nameError").text(
-          "First name is not in good format. It has to start with a capital letter.",
+          "Please enter a valid first name (start with a capital letter).",
         );
         $("#first-name").addClass("error");
         isValid = false;
@@ -159,20 +141,20 @@ function indexInitFunctions() {
 
       if (!nameRegex.test(lastName)) {
         $("#lastNameError").text(
-          "Last name is not in good format. It has to start with a capital letter.",
+          "Please enter a valid last name (start with a capital letter).",
         );
         $("#last-name").addClass("error");
         isValid = false;
       }
 
       if (!emailRegex.test(email)) {
-        $("#emailError").text("Email is not valid.");
+        $("#emailError").text("Please enter a valid email address.");
         $("#email").addClass("error");
         isValid = false;
       }
 
       if (message.length < 10) {
-        $("#messageError").text("Message must have at least 10 characters.");
+        $("#messageError").text("Message must be at least 10 characters long.");
         $("#message").addClass("error");
         isValid = false;
       }
@@ -215,22 +197,43 @@ function bindEvents() {
     addToCart(id);
   });
 
-  $(document).on("click", ".remove-btn", function(){
+  $(document).on("click", ".remove-btn", function () {
     let id = $(this).data("id");
 
     removeFromCart(id);
+  });
 
-  })
-
-  $(document).on("click", ".btn-plus", function(){
+  $(document).on("click", ".btn-plus", function () {
     let id = $(this).data("id");
     increaseQuantity(id);
-  })
+  });
 
-  $(document).on("click", ".btn-minus", function(){
+  $(document).on("click", ".btn-minus", function () {
     let id = $(this).data("id");
     decreaseQuantity(id);
-  })
+  });
+
+  $(document).on("click", ".checkout-btn", function (e) {
+    e.preventDefault();
+
+    let cart = getCart();
+
+    if (cart.length === 0) {
+      $(".danger-msg").text("Your cart is empty.");
+      $(".danger-msg").addClass("text-center");
+      $(".danger-msg").addClass("pt-2");
+
+      return;
+    }
+
+    $(".danger-msg").text("");
+    window.location.href = "checkout.html";
+  });
+
+  $(document).on("submit", "#checkoutForm", function(e) {
+  e.preventDefault();
+  validateCheckoutForm();
+});
 }
 
 //dohvatanje podataka iz json fajlova products i categories i funkcije za prikaz proizvoda
@@ -262,8 +265,13 @@ function initPageData() {
         }
         if (page === "cart.html") {
           showCart();
+        }
+        if (page === "checkout.html") {
+          loadCheckoutPage();
           
         }
+        updateCartSummary();
+        updateCartCount();
       });
     });
   });
@@ -750,13 +758,15 @@ function showCart() {
   let html = ``;
 
   if (cart.length === 0) {
-    $("#cartItems").html(`<p>Your cart is empty. <a href="shop.html" class="button continue-shopping">shop now</a></p>`);
+    $("#cartItems").html(
+      `<p>Your cart is empty. <a href="shop.html" class="button continue-shopping">shop now</a></p>`,
+    );
     return;
   }
   cart.forEach(function (item) {
     let product = findProductById(item.id);
-     let finalPrice = getFinalPrice(product.price.base, product.price.discount);
-    
+    let finalPrice = getFinalPrice(product.price.base, product.price.discount);
+
     html += `
       <div class="cart-item d-flex align-items-center justify-content-between p-3 border rounded-4 mb-3">
         <div class="d-flex align-items-center gap-3">
@@ -770,7 +780,7 @@ function showCart() {
 
         <div class="cart-item-actions d-flex align-items-center gap-3">
           <div class="quantity-box d-flex align-items-center">
-            <button class="quantity-btn btn-minus" data-id="${product.id}" ${item.quantity<=1 ? "disabled" : ""}>-</button>
+            <button class="quantity-btn btn-minus" data-id="${product.id}" ${item.quantity <= 1 ? "disabled" : ""}>-</button>
             <span class="quantity-value px-3">${item.quantity}</span>
             <button class="quantity-btn btn-plus" data-id="${product.id}" ${item.quantity >= 5 ? "disabled" : ""}>+</button>
           </div>
@@ -778,10 +788,8 @@ function showCart() {
         </div>
       </div>
     `;
-
-    
   });
-  
+
   $("#cartItems").html(html);
   updateCartSummary();
 }
@@ -799,17 +807,15 @@ function updateCartCount() {
 }
 
 function updateCartSummary() {
-
   let cart = getCart();
 
   let subtotal = 0;
   let discount = 0;
 
-  cart.forEach(function(item){
-
+  cart.forEach(function (item) {
     let product = findProductById(item.id);
 
-    if(!product) return;
+    if (!product) return;
 
     let basePrice = product.price.base;
     let finalPrice = getFinalPrice(product.price.base, product.price.discount);
@@ -817,7 +823,6 @@ function updateCartSummary() {
     subtotal += basePrice * item.quantity;
 
     discount += (basePrice - finalPrice) * item.quantity;
-
   });
 
   let total = subtotal - discount;
@@ -825,33 +830,32 @@ function updateCartSummary() {
   $("#cartSubtotal").text("$" + subtotal.toFixed(2));
   $("#cartDiscount").text("$" + discount.toFixed(2));
   $("#cartTotal").text("$" + total.toFixed(2));
+  $(".products-total").text("$" + total.toFixed(2));
 }
 
 //remove
 
-function removeFromCart(productId){
-  let cart =getCart();
-  cart = cart.filter(function(item){
+function removeFromCart(productId) {
+  let cart = getCart();
+  cart = cart.filter(function (item) {
     return item.id != productId;
-  
-  })
-  localStorage.setItem("cart", JSON.stringify(cart))
+  });
+  localStorage.setItem("cart", JSON.stringify(cart));
   showCart();
   updateCartCount();
   updateCartSummary();
 }
 
 //Increase dugme
-function increaseQuantity(id){
+function increaseQuantity(id) {
   let cart = getCart();
 
-  cart.forEach(function(item){
-    if(item.id == id){
-      item.quantity++
+  cart.forEach(function (item) {
+    if (item.id == id) {
+      item.quantity++;
     }
-    
-  })
-  localStorage.setItem("cart", JSON.stringify(cart))
+  });
+  localStorage.setItem("cart", JSON.stringify(cart));
 
   showCart();
   updateCartCount();
@@ -859,18 +863,108 @@ function increaseQuantity(id){
 }
 
 //Decrease dugme
-function decreaseQuantity(id){
+function decreaseQuantity(id) {
   let cart = getCart();
 
-  cart.forEach(function(item){
-    if(item.id == id && item.quantity>1){
-      item.quantity--
+  cart.forEach(function (item) {
+    if (item.id == id && item.quantity > 1) {
+      item.quantity--;
     }
+  });
 
-    localStorage.setItem("cart", JSON.stringify(cart))
-    showCart();
-    updateCartCount()
-    updateCartSummary();
-  })
+  localStorage.setItem("cart", JSON.stringify(cart));
+  showCart();
+  updateCartCount();
+  updateCartSummary();
 }
 
+//checkout
+function loadCheckoutPage() {
+  let cart = getCart();
+
+  if (cart.length === 0) {
+    $(".checkout-form-wrapper").html(`
+      <p>Your cart is empty.</p>
+      <a href="shop.html" class="button continue-shopping">Continue shopping</a>
+    `);
+
+    $(".checkout-summary").hide();
+    return;
+  }
+  updateCartSummary()
+}
+
+function validateCheckoutForm() {
+  let fullName = $("#fullName").val().trim();
+  let email = $("#emailCheckout").val().trim();
+  let phone = $("#phone").val().trim();
+  let city = $("#city").val().trim();
+  let address = $("#address").val().trim();
+  let zipCode = $("#zipCode").val().trim();
+  let paymentMethod = $("#paymentMethod").val();
+
+  let nameRegex = /^[A-ZŽĐŠĆČ][a-zžđšćč]{1,20}( [A-ZŽĐŠĆČ][a-zžđšćč]{1,20})+$/;
+  let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  let phoneRegex = /^[0-9+\s\/-]{6,20}$/;
+  let zipRegex = /^[0-9]{4,10}$/;
+
+  let isValid = true;
+
+  $(".error").text("");
+  $(".danger-msg").text("");
+  $(".success-msg").text("");
+  $(".form-control, .form-select").removeClass("error-border");
+
+  if (!nameRegex.test(fullName)) {
+    $("#fullNameError").text("Enter full name correctly.");
+    $("#fullName").addClass("error-border");
+    isValid = false;
+  }
+
+  if (!emailRegex.test(email)) {
+    $("#emailError").text("Email is not valid.");
+    $("#emailCheckout").addClass("error-border");
+    isValid = false;
+  }
+
+  if (!phoneRegex.test(phone)) {
+    $("#phoneError").text("Phone is not valid.");
+    $("#phone").addClass("error-border");
+    isValid = false;
+  }
+
+  if (city.length < 2) {
+    $("#cityError").text("City is required.");
+    $("#city").addClass("error-border");
+    isValid = false;
+  }
+
+  if (address.length < 5) {
+    $("#addressError").text("Address is required.");
+    $("#address").addClass("error-border");
+    isValid = false;
+  }
+
+  if (!zipRegex.test(zipCode)) {
+    $("#zipError").text("ZIP code is not valid.");
+    $("#zipCode").addClass("error-border");
+    isValid = false;
+  }
+
+  if (paymentMethod === "0") {
+    $("#paymentError").text("Choose payment method.");
+    $("#paymentMethod").addClass("error-border");
+    isValid = false;
+  }
+
+  if (!isValid) return;
+
+  localStorage.removeItem("cart");
+  updateCartCount();
+
+  $(".success-msg").text("Order successfully placed!");
+
+  setTimeout(function() {
+    window.location.href = "index.html";
+  }, 1500);
+}

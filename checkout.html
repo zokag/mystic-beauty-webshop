@@ -19,7 +19,7 @@
       src="https://kit.fontawesome.com/68cdbeed89.js"
       crossorigin="anonymous"
     ></script>
-    <title>Mystical Beauty - SHOP</title>
+    <title>Mystical Beauty</title>
   </head>
   <body>
     <!--header-->
@@ -70,42 +70,104 @@
       </div>
     </header>
 
-    <!-- AUTHOR -->
-    <section id="author" class="author-section py-5">
+    <section class="checkout-page py-5">
       <div class="container">
-        <div class="text-center mb-5">
-          <h1 class="span-primary">About the Author</h1>
-          <p class="author-subtitle mb-0">student profile</p>
-        </div>
+        <div class="row g-4">
+          <div class="col-lg-7">
+            <div class="checkout-form-wrapper p-4 rounded-4 shadow-sm bg-white">
+              <h2 class="mb-4">Checkout</h2>
 
-        <div class="author-card shadow-sm rounded-4 overflow-hidden">
-          <div class="row g-0 align-items-center">
-            <!-- Leva strana - slika -->
-            <div class="col-12 col-md-5 text-center author-image-wrapper">
-              <img
-                src="assets/img/author.jpeg"
-                alt="Author"
-                class="author-image"
-              />
-            </div>
+              <p class="danger-msg text-danger mb-3"></p>
+              <p class="success-msg text-success mb-3"></p>
 
-            <!-- Desna strana - podaci -->
-            <div class="col-12 col-md-7">
-              <div class="author-content p-4 p-lg-5">
-                <h2 class="mb-4">Info</h2>
+              <form id="checkoutForm">
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="fullName" class="form-label">Full name</label>
+                    <input type="text" id="fullName" class="form-control" />
+                    <small class="text-danger error" id="fullNameError"></small>
+                  </div>
 
-                <div class="author-info mb-4">
-                  <p><span class="info-label">Name:</span> Zorka</p>
-                  <p><span class="info-label">Surname:</span> Grčić</p>
-                  <p><span class="info-label">Index number:</span> 53/22</p>
-                  <p><span class="info-label">School:</span> ICT College</p>
+                  <div class="col-md-6 mb-3">
+                    <label for="emailCheckout" class="form-label">Email</label>
+                    <input
+                      type="text"
+                      id="emailCheckout"
+                      class="form-control"
+                    />
+                    <small class="text-danger error" id="emailError"></small>
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <label for="phone" class="form-label">Phone</label>
+                    <input type="text" id="phone" class="form-control" />
+                    <small class="text-danger error" id="phoneError"></small>
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <label for="city" class="form-label">City</label>
+                    <input type="text" id="city" class="form-control" />
+                    <small class="text-danger error" id="cityError"></small>
+                  </div>
+
+                  <div class="col-12 mb-3">
+                    <label for="address" class="form-label">Address</label>
+                    <input type="text" id="address" class="form-control" />
+                    <small class="text-danger error" id="addressError"></small>
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <label for="zipCode" class="form-label">ZIP code</label>
+                    <input type="text" id="zipCode" class="form-control" />
+                    <small class="text-danger error" id="zipError"></small>
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <label for="paymentMethod" class="form-label"
+                      >Payment method</label
+                    >
+                    <select id="paymentMethod" class="form-select">
+                      <option value="0">Choose payment method</option>
+                      <option value="cash">Cash on delivery</option>
+                      <option value="card">Card payment</option>
+                    </select>
+                    <small class="text-danger error" id="paymentError"></small>
+                  </div>
                 </div>
+
+                <button type="submit" class="button button-primary mt-3">
+                  Place order
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <div class="col-lg-5">
+            <div class="checkout-summary p-4 rounded-4 shadow-sm bg-white">
+              <h3 class="mb-4">Order Summary</h3>
+
+              <div class="d-flex justify-content-between mb-2">
+                <span>Subtotal</span>
+                <span id="cartSubtotal">$0.00</span>
+              </div>
+
+              <div class="d-flex justify-content-between mb-2">
+                <span>Discount</span>
+                <span id="cartDiscount">$0.00</span>
+              </div>
+
+              <hr />
+
+              <div class="d-flex justify-content-between fw-bold">
+                <span>Total</span>
+                <span id="cartTotal">$0.00</span>
               </div>
             </div>
           </div>
         </div>
       </div>
     </section>
+
     <footer id="footer" class="mt-5 py-4">
       <div class="container">
         <div class="row align-items-center text-center text-lg-start gy-4">
@@ -150,6 +212,7 @@
         </div>
       </div>
     </footer>
+
     <!--jquery-->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
