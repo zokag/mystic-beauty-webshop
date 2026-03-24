@@ -703,6 +703,18 @@ header.scrolled {
   color: #777;
 }
 
+/* pagination */
+#pagination .page-link {
+  border-radius: 10px;
+  color: #000;
+}
+
+#pagination .page-item.active .page-link {
+  background-color: var(--primary); 
+  border-color: var(--primary);
+  color: #fff;
+}
+
 /* =========================
    CART
 ========================= */
@@ -1164,6 +1176,10 @@ textarea {
 }
 
 @media (max-width: 767.98px) {
+.right p{
+  font-size: 1rem;
+}
+
   #header {
     flex-wrap: wrap;
     justify-content: space-between !important;
@@ -1243,3 +1259,4 @@ textarea {
     font-size: 1rem;
   }
 }
+

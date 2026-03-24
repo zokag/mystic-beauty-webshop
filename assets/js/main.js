@@ -1,6 +1,8 @@
 let allProducts = [];
 let categoriesData = [];
 let subcategoriesData = [];
+let currentPage = 1;
+let productsPerPage=6;
 
 // DOM ready
 $(document).ready(function () {
@@ -230,10 +232,26 @@ function bindEvents() {
     window.location.href = "checkout.html";
   });
 
-  $(document).on("submit", "#checkoutForm", function(e) {
-  e.preventDefault();
-  validateCheckoutForm();
-});
+  $(document).on("submit", "#checkoutForm", function (e) {
+    e.preventDefault();
+    validateCheckoutForm();
+  });
+
+  //pagination-btn
+  $(document).on("click", ".pagination-btn", function(e){
+    e.preventDefault();
+
+    let page = parseInt($(this).data("page"));
+
+    if(!isNaN(page) && page > 0){
+      currentPage = page;
+      getFilteredProducts();
+
+      $("html, body").animate({
+        scrollTop: $(".shopProducts").offset().top - 100
+      }, 300)
+    }
+  })
 }
 
 //dohvatanje podataka iz json fajlova products i categories i funkcije za prikaz proizvoda
@@ -268,7 +286,6 @@ function initPageData() {
         }
         if (page === "checkout.html") {
           loadCheckoutPage();
-          
         }
         updateCartSummary();
         updateCartCount();
@@ -316,7 +333,7 @@ function getCategoryName(categoryId) {
 }
 
 function loadCategoryDropdown() {
-  let html = `<option value="0">All categories</option>`;
+  let html = `<option value="all">All categories</option>`;
 
   for (let category of categoriesData) {
     html += `<option value="${category.id}">${category.name} (${countProductsByCategory(category.id)})</option>`;
@@ -369,15 +386,16 @@ function loadSubcategories() {
 //filter
 //By category
 function filterProductsByCategory() {
-  const categoryId = Number($("#categoryFilter").val());
+  let selectedCategory = $("#categoryFilter").val();
+  let filteredProducts = allProducts.filter(function (product) {
+    return Number(selectedCategory) === product.categoryId;
+  });
 
-  if (categoryId === 0) {
+  if (selectedCategory === "all") {
     return allProducts;
   }
 
-  return allProducts.filter(
-    (product) => Number(product.categoryId) === categoryId,
-  );
+  return filteredProducts;
 }
 //By Search
 function filterProductsBySearch(products) {
@@ -441,6 +459,47 @@ function sortProducts(products) {
   return sortedProducts;
 }
 
+
+//pagination
+function renderPagination(totalPages){
+  let html = ``;
+
+  if(totalPages <= 1){
+    $("#pagination").html("");
+      return;
+  }
+
+  html += `<ul class="pagination justify-content-center">`
+
+  html+=`
+    <li class="page-item ${currentPage === 1?"disabled":""}">
+      <a href="#" class="page-link pagination-btn" data-page="${currentPage - 1}">Prev</a>
+    </li>
+  
+  `
+
+  for(let i=1; i<=totalPages; i++){
+    html+=`
+      <li class="page-item ${currentPage === i ? "active" : ""}">
+        <a href="#" class="page-link pagination-btn" data-page="${i}">${i}</a>
+      </li>
+    
+    `
+  }
+
+  html+=`
+    <li class="page-item ${currentPage === totalPages?"disabled":""}">
+      <a href="#" class="page-link pagination-btn" data-page="${currentPage + 1}">Next</a>
+    </li>
+  
+  `
+
+  html+=`</ul>`;
+
+  $("#pagination").html(html);
+}
+
+
 //Products
 //Filtered products
 function getFilteredProducts() {
@@ -449,13 +508,33 @@ function getFilteredProducts() {
   filteredProducts = filterProductsBySearch(filteredProducts);
   filteredProducts = sortProducts(filteredProducts);
 
-  showShopProducts(filteredProducts);
+  let totalProducts = filteredProducts.length;
+  let totalPages = Math.ceil(totalProducts/productsPerPage);
+
+  if(currentPage > totalPages && totalPages > 0){
+    currentPage = totalPages;
+  }
+
+  let start = (currentPage - 1) * productsPerPage;
+  let end = start + productsPerPage;
+
+  let productsForPage = filteredProducts.slice(start,end);
+
+  showShopProducts(productsForPage);
+  renderPagination(totalPages);
+
+  $(".product-count").html(`Number of products: ${totalProducts}`);
+
+  if(totalProducts === 0){
+    $("#noResults").removeClass("hidden");
+    $("#pagination").hide();
+  }else{
+    $("#noResults").addClass("hidden");
+    $("#pagination").show();
+  }
 }
 
 function showShopProducts(products) {
-  let noResults = $("#noResults");
-  let numberOfProducts = products.length;
-
   let container = $(".shopProducts");
   container.empty();
   let shopProducts = [...products];
@@ -465,14 +544,6 @@ function showShopProducts(products) {
   for (let product of shopProducts) {
     html += renderProductHTML(product);
   }
-
-  if (numberOfProducts === 0) {
-    noResults.removeClass("hidden");
-    return $(".product-count").html(`Number of Products: ${numberOfProducts}`);
-  }
-
-  $(".product-count").html(`Number of Products: ${numberOfProducts}`);
-  noResults.addClass("hidden");
 
   container.append(html);
 }
@@ -891,7 +962,7 @@ function loadCheckoutPage() {
     $(".checkout-summary").hide();
     return;
   }
-  updateCartSummary()
+  updateCartSummary();
 }
 
 function validateCheckoutForm() {
@@ -964,7 +1035,7 @@ function validateCheckoutForm() {
 
   $(".success-msg").text("Order successfully placed!");
 
-  setTimeout(function() {
+  setTimeout(function () {
     window.location.href = "index.html";
   }, 1500);
 }
