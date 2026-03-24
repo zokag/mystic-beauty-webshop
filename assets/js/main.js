@@ -601,7 +601,7 @@ function renderProductHTML(product) {
     <div class="col-12 col-sm-6 col-xl-4 product-card">
       <div class='article'>
           <div class='product-image'>
-              <img class='slika' src='${product.image}' alt='${product.name}'>
+              <img src='${product.image}' alt='${product.name}'>
               ${showDiscount(product.price.discount)}
               ${showNew(product.isNew)}
               <a href="product.html?id=${product.id}" class="product-view">View Product</a>
