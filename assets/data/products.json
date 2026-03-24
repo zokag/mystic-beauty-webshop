@@ -180,5 +180,57 @@
       "origin": "Poland"
     },
     "isNew": false
+  },
+  {
+    "id": 8,
+    "name": "Me like Volumizing Lip Gloss",
+    "categoryId": 1,
+    "subcategoryId": 1,
+    "price": {
+      "base": 79.66,
+      "discount": 0
+    },
+    "rating": 4.0,
+    "reviews": 589,
+    "stock": {
+      "available": true,
+      "quantity": 25
+    },
+    "image": "assets/img/lipgloss2.jpg",
+    "description": "A volumizing lip gloss that enhances the natural shape of your lips while adding brilliant shine.\n\nIts lightweight formula provides a glossy finish without stickiness, leaving lips smooth, hydrated, and comfortable.",
+    "ingredients": "Hydrogenated Polyisobutene, Jojoba Oil, Shea Butter, Vitamin E, Silica, Synthetic Wax, Flavor, Pigments.",
+    "howToUse": "Apply directly onto lips using the applicator or layer over lipstick to enhance shine and volume.",
+    "details": {
+      "type": "Lip gloss",
+      "size": "8ml",
+      "origin": "Poland"
+    },
+    "isNew": false
+  },
+  {
+    "id": 9,
+    "name": "Sleeks Cream Lip Paint",
+    "categoryId": 1,
+    "subcategoryId": 1,
+    "price": {
+      "base": 65.99,
+      "discount": 40
+    },
+    "rating": 4.4,
+    "reviews": 956,
+    "stock": {
+      "available": true,
+      "quantity": 2
+    },
+    "image": "assets/img/lipgloss3.jpg",
+    "description": "A beautiful lip product presented in packaging resembling a test tube as a nod to the company’s passion for science. Vitamin E and rich emollients moisturize your lips while a long lasting formula ensures longevity. Creamy texture is frost and glitter free, perfect for colour with a glossy yet flat texture.",
+    "ingredients": "Hydrogenated Polyisobutene, Jojoba Seed Oil, Shea Butter, Tocopheryl Acetate, Silica, Synthetic Wax, Flavor, Colorants.",
+    "howToUse": "Apply with a dedicated applicator directly from the packaging.",
+    "details": {
+      "type": "Cream Lip Gloss",
+      "size": "5.5 ml",
+      "origin": "USA"
+    },
+    "isNew": false
   }
 ]

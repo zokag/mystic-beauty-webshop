@@ -86,7 +86,6 @@
               <h2 class="mb-4">Checkout</h2>
 
               <p class="danger-msg text-danger mb-3"></p>
-              <p class="success-msg text-success mb-3"></p>
 
               <form id="checkoutForm">
                 <div class="row">
@@ -142,10 +141,12 @@
                     <small class="text-danger error" id="paymentError"></small>
                   </div>
                 </div>
+                <div class="d-flex justify-content-between">
+                  <button type="submit" class="button button-primary mt-3">
+                    Place order
+                  </button>
 
-                <button type="submit" class="button button-primary mt-3">
-                  Place order
-                </button>
+                </div>
               </form>
             </div>
           </div>
@@ -175,6 +176,7 @@
         </div>
       </div>
     </section>
+    <div id="toast-container"></div>
 
     <footer id="footer" class="mt-5 py-4">
       <div class="container">
@@ -202,7 +204,8 @@
               </a>
               <div class="copy">
                 <p class="mb-0 mt-2">
-                  Copyright &copy; 2026 Mystical Beauty. All Rights Reserved.
+                  Copyright &copy; <span id="year"></span> Mystical Beauty. All
+                  Rights Reserved.
                 </p>
               </div>
             </div>

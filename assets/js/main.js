@@ -2,7 +2,7 @@ let allProducts = [];
 let categoriesData = [];
 let subcategoriesData = [];
 let currentPage = 1;
-let productsPerPage=6;
+let productsPerPage = 6;
 
 // DOM ready
 $(document).ready(function () {
@@ -93,10 +93,17 @@ function allPagesInitFunctions() {
       `Daily Mystical Tip: ${tips[tipIndex]}`;
   }
 
+  //year function
+  function initYear() {
+    let year = new Date().getFullYear();
+    $("#year").html(year);
+  }
+
   initMenu();
   initSocialIcons();
   initStickyHeader();
   initDailyTip();
+  initYear();
 }
 
 //functions on index
@@ -221,9 +228,7 @@ function bindEvents() {
     let cart = getCart();
 
     if (cart.length === 0) {
-      $(".danger-msg").text("Your cart is empty.");
-      $(".danger-msg").addClass("text-center");
-      $(".danger-msg").addClass("pt-2");
+      showToast("Your cart is empty.", "error")
 
       return;
     }
@@ -238,20 +243,23 @@ function bindEvents() {
   });
 
   //pagination-btn
-  $(document).on("click", ".pagination-btn", function(e){
+  $(document).on("click", ".pagination-btn", function (e) {
     e.preventDefault();
 
     let page = parseInt($(this).data("page"));
 
-    if(!isNaN(page) && page > 0){
+    if (!isNaN(page) && page > 0) {
       currentPage = page;
       getFilteredProducts();
 
-      $("html, body").animate({
-        scrollTop: $(".shopProducts").offset().top - 100
-      }, 300)
+      $("html, body").animate(
+        {
+          scrollTop: $(".shopProducts").offset().top - 100,
+        },
+        300,
+      );
     }
-  })
+  });
 }
 
 //dohvatanje podataka iz json fajlova products i categories i funkcije za prikaz proizvoda
@@ -459,48 +467,68 @@ function sortProducts(products) {
   return sortedProducts;
 }
 
-
 //pagination
-function renderPagination(totalPages){
+function renderPagination(totalPages) {
   let html = ``;
 
-  if(totalPages <= 1){
+  if (totalPages <= 1) {
     $("#pagination").html("");
-      return;
+    return;
   }
 
-  html += `<ul class="pagination justify-content-center">`
+  html += `<ul class="pagination justify-content-center">`;
 
-  html+=`
-    <li class="page-item ${currentPage === 1?"disabled":""}">
+  html += `
+    <li class="page-item ${currentPage === 1 ? "disabled" : ""}">
       <a href="#" class="page-link pagination-btn" data-page="${currentPage - 1}">Prev</a>
     </li>
   
-  `
+  `;
 
-  for(let i=1; i<=totalPages; i++){
-    html+=`
+  for (let i = 1; i <= totalPages; i++) {
+    html += `
       <li class="page-item ${currentPage === i ? "active" : ""}">
         <a href="#" class="page-link pagination-btn" data-page="${i}">${i}</a>
       </li>
     
-    `
+    `;
   }
 
-  html+=`
-    <li class="page-item ${currentPage === totalPages?"disabled":""}">
+  html += `
+    <li class="page-item ${currentPage === totalPages ? "disabled" : ""}">
       <a href="#" class="page-link pagination-btn" data-page="${currentPage + 1}">Next</a>
     </li>
   
-  `
+  `;
 
-  html+=`</ul>`;
+  html += `</ul>`;
 
   $("#pagination").html(html);
 }
 
+//toast
+function showToast(message, type = "success") {
+  let toast = document.createElement("div");
+  toast.classList.add("toast", type);
+  toast.innerHTML = message;
+
+  document.getElementById("toast-container").appendChild(toast);
+
+  setTimeout(() => {
+    toast.classList.add("show");
+  }, 100);
+
+  setTimeout(() => {
+    toast.classList.remove("show");
+
+    setTimeout(() => {
+      toast.remove();
+    }, 300);
+  }, 3000);
+}
 
 //Products
+
 //Filtered products
 function getFilteredProducts() {
   let filteredProducts = filterProductsByCategory();
@@ -509,26 +537,26 @@ function getFilteredProducts() {
   filteredProducts = sortProducts(filteredProducts);
 
   let totalProducts = filteredProducts.length;
-  let totalPages = Math.ceil(totalProducts/productsPerPage);
+  let totalPages = Math.ceil(totalProducts / productsPerPage);
 
-  if(currentPage > totalPages && totalPages > 0){
+  if (currentPage > totalPages && totalPages > 0) {
     currentPage = totalPages;
   }
 
   let start = (currentPage - 1) * productsPerPage;
   let end = start + productsPerPage;
 
-  let productsForPage = filteredProducts.slice(start,end);
+  let productsForPage = filteredProducts.slice(start, end);
 
   showShopProducts(productsForPage);
   renderPagination(totalPages);
 
-  $(".product-count").html(`Number of products: ${totalProducts}`);
+  $(".product-count").html(`Number of products: <strong>${totalProducts}</strong>`);
 
-  if(totalProducts === 0){
+  if (totalProducts === 0) {
     $("#noResults").removeClass("hidden");
     $("#pagination").hide();
-  }else{
+  } else {
     $("#noResults").addClass("hidden");
     $("#pagination").show();
   }
@@ -570,8 +598,8 @@ function showNewProducts(products) {
 
 function renderProductHTML(product) {
   return `
-    <div class="col-12 col-sm-6 col-xl-4">
-      <div class='artical'>
+    <div class="col-12 col-sm-6 col-xl-4 product-card">
+      <div class='article'>
           <div class='product-image'>
               <img class='slika' src='${product.image}' alt='${product.name}'>
               ${showDiscount(product.price.discount)}
@@ -648,13 +676,12 @@ function showNew(isNew) {
 // show one product
 function renderSingleProductHTML(product) {
   return `
-  <div class="single-product container py-5">
+  <div class="single-product container border py-5">
 
   <div class="row g-5">
-
-    <div class="col-md-6 single-product-image">
+  <div class="col-md-6 single-product-image">
         <div class="image-wrapper">
-            <img src="${product.image}" class="img-fluid main-product-image">
+            <img src="${product.image}" class="img-fluid main-product-image ">
         </div>
     </div>
 
@@ -708,6 +735,7 @@ function renderSingleProductHTML(product) {
         ${renderAddToCartButton(product.stock, product.id)}
 
     </div>
+    
 
   </div>
 
@@ -791,7 +819,7 @@ function renderAddToCartButton(stock, productId) {
     if (!stock.available || stock.quantity == 0) {
       return `<button class="button disabled" disabled>Out of stock</button>`;
     }
-    return `<button class="addToCart button button-outline" data-id="${productId}">Add to cart</button>`;
+    return `<button class="addToCart button-action button button-outline" data-id="${productId}">Add to cart</button>`;
   }
 
   return "";
@@ -799,7 +827,8 @@ function renderAddToCartButton(stock, productId) {
 
 //dodajemo u local storage
 function addToCart(productId) {
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  try{
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
   let existingProduct = cart.find(function (item) {
     return item.id == productId;
   });
@@ -816,11 +845,23 @@ function addToCart(productId) {
   localStorage.setItem("cart", JSON.stringify(cart));
   updateCartCount();
   updateCartSummary();
+  showToast("Product added to cart!");
+
+
+  }catch(error){
+    console.error("An error occured while trying to add to cart.", error);
+    
+  }
 }
 
 //get cart
 function getCart() {
-  return JSON.parse(localStorage.getItem("cart")) || [];
+  try {
+    return JSON.parse(localStorage.getItem("cart")) || [];
+  } catch (error) {
+    console.error("An error occured while trying to load cart.", error);
+    return [];
+  }
 }
 
 //prikaz proizvoda iz korpe
@@ -919,34 +960,46 @@ function removeFromCart(productId) {
 
 //Increase dugme
 function increaseQuantity(id) {
-  let cart = getCart();
+  try{
+    let cart = getCart();
+  
+    cart.forEach(function (item) {
+      if (item.id == id) {
+        item.quantity++;
+      }
+    });
+    localStorage.setItem("cart", JSON.stringify(cart));
+  
+    showCart();
+    updateCartCount();
+    updateCartSummary();
 
-  cart.forEach(function (item) {
-    if (item.id == id) {
-      item.quantity++;
-    }
-  });
-  localStorage.setItem("cart", JSON.stringify(cart));
+  }catch(error){
+    console.error("An error occured while trying to increase quantity.", error);
 
-  showCart();
-  updateCartCount();
-  updateCartSummary();
+  }
 }
 
 //Decrease dugme
 function decreaseQuantity(id) {
-  let cart = getCart();
+  try{
+    let cart = getCart();
+  
+    cart.forEach(function (item) {
+      if (item.id == id && item.quantity > 1) {
+        item.quantity--;
+      }
+    });
+  
+    localStorage.setItem("cart", JSON.stringify(cart));
+    showCart();
+    updateCartCount();
+    updateCartSummary();
 
-  cart.forEach(function (item) {
-    if (item.id == id && item.quantity > 1) {
-      item.quantity--;
-    }
-  });
+  }catch(error){
+    console.error("An error occured while trying to decrease quantity.");
 
-  localStorage.setItem("cart", JSON.stringify(cart));
-  showCart();
-  updateCartCount();
-  updateCartSummary();
+  }
 }
 
 //checkout
@@ -1033,9 +1086,11 @@ function validateCheckoutForm() {
   localStorage.removeItem("cart");
   updateCartCount();
 
-  $(".success-msg").text("Order successfully placed!");
+  showToast("Order successfully placed!");
 
   setTimeout(function () {
     window.location.href = "index.html";
   }, 1500);
 }
+
+
