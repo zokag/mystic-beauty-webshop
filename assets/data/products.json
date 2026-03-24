@@ -14,7 +14,7 @@
       "available": true,
       "quantity": 9
     },
-    "image": "assets/img/artical1.jpg",
+    "image": "assets/img/article1.jpg",
     "description": "Deep cleansing foam with rose scent that gently removes impurities, excess oil, and makeup while leaving the skin soft and refreshed.\n\nIts delicate formula helps maintain the skin’s natural balance while providing a soothing cleansing experience suitable for daily skincare routines.",
     "ingredients": "Water, Glycerin, Rose Extract, Aloe Vera Extract, Panthenol, Sodium Cocoyl Glycinate, Citric Acid, Fragrance.",
     "howToUse": "Apply a small amount onto damp skin and gently massage in circular motions until foam forms. Rinse thoroughly with lukewarm water and continue with your skincare routine.",
@@ -40,7 +40,7 @@
       "available": true,
       "quantity": 4
     },
-    "image": "assets/img/artical2.jpg",
+    "image": "assets/img/article2.jpg",
     "description": "Deep cleansing foam with milky texture that gently removes impurities while leaving the skin soft and hydrated.\n\nIts creamy texture helps maintain moisture balance and provides a smooth and comfortable cleansing experience for everyday use.",
     "ingredients": "Water, Glycerin, Milk Protein Extract, Chamomile Extract, Panthenol, Sodium Cocoyl Isethionate, Lactic Acid, Fragrance.",
     "howToUse": "Massage onto wet skin in gentle circular motions. Rinse thoroughly and pat dry before applying the next skincare step.",
@@ -66,7 +66,7 @@
       "available": false,
       "quantity": 0
     },
-    "image": "assets/img/artical3.jpg",
+    "image": "assets/img/article3.jpg",
     "description": "Deep cleansing foam with refreshing mint aroma that purifies the skin and removes daily buildup.\n\nIts cooling sensation leaves the face feeling revitalized and refreshed, making it perfect for energizing morning routines.",
     "ingredients": "Water, Glycerin, Mint Leaf Extract, Tea Tree Oil, Aloe Vera Extract, Cocamidopropyl Betaine, Panthenol, Fragrance.",
     "howToUse": "Work a small amount into foam with wet hands, massage onto damp skin, then rinse thoroughly with warm water.",
