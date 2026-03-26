@@ -71,7 +71,7 @@ function allPagesInitFunctions() {
   // Sticky Header
   function initStickyHeader() {
     $(window).on("scroll", function () {
-      if ($(window).scrollTop() > 500) {
+      if ($(window).scrollTop() > 50) {
         $("header").addClass("scrolled");
       } else {
         $("header").removeClass("scrolled");
