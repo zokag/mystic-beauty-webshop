@@ -39,7 +39,7 @@
     <header class="header">
       <div
         id="header"
-        class="container d-flex align-items-center justify-content-between"
+        class="container d-flex align-items-center justify-content-between flex-wrap"
       >
         <!-- LEVA STRANA -->
         <div class="header-left-side d-flex align-items-center">
@@ -49,9 +49,10 @@
             </a>
           </div>
 
-          <div id="nav">
+          <div id="nav" class="ms-2">
             <ul class="navbar d-flex ps-0 mb-0"></ul>
           </div>
+          
         </div>
 
         <!-- SREDINA -->
@@ -61,7 +62,6 @@
             <i class="fa-solid fa-bars"></i>
           </button>
         </div>
-
         <!-- DESNA STRANA -->
         <div id="desno" class="d-flex align-items-center">
           <div class="header-cart d-flex align-items-center position-relative">
@@ -76,7 +76,7 @@
 
             <span class="cart-text d-flex flex-column ms-2">
               <span class="products-count">Products</span>
-              <span class="products-total"><strong>$0,00</strong></span>
+              <span class="products-total"></span>
             </span>
           </div>
         </div>
@@ -438,8 +438,7 @@
               <h6 class="mb-3">Follow Us</h6>
               <div
                 id="socialIcons"
-                class="d-flex justify-content-lg-end gap-3
-                flex-column"
+                class="d-flex justify-content-lg-end gap-3 flex-column"
               ></div>
             </div>
           </div>
