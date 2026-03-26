@@ -310,6 +310,16 @@ function showNavigation(menuArray) {
             <a class="nav-link" href="${link.href}">${link.naslov}</a>
         </li>`;
   }
+  sadrzaj+=`
+  <div class="nav-item">
+              <a
+                href="documentation.pdf"
+                class="border p-1 nav-link"
+                target="_blank"
+                >Doc <i class="fa-solid fa-file-lines"></i
+              ></a>
+            </div>
+  `
   document.querySelector(".navbar").innerHTML = sadrzaj;
   document.querySelector(".footer-navbar").innerHTML = sadrzaj;
 
