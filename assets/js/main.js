@@ -305,10 +305,16 @@ function initPageData() {
 //navigacija
 function showNavigation(menuArray) {
   let sadrzaj = "";
+  let sadrzajFooter = "";
   for (let link of menuArray) {
     sadrzaj += `<li class="nav-item ">
             <a class="nav-link" href="${link.href}">${link.naslov}</a>
         </li>`;
+    sadrzajFooter+=`
+    <li class="nav-item ">
+            <a class="nav-link" href="${link.href}">${link.naslov}</a>
+        </li>
+    `
   }
   sadrzaj+=`
   <div class="nav-item">
@@ -321,7 +327,7 @@ function showNavigation(menuArray) {
             </div>
   `
   document.querySelector(".navbar").innerHTML = sadrzaj;
-  document.querySelector(".footer-navbar").innerHTML = sadrzaj;
+  document.querySelector(".footer-navbar").innerHTML = sadrzajFooter;
 
   activeLink();
 }
