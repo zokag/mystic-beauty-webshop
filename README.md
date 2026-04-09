@@ -15,8 +15,12 @@ Mystic Beauty is a frontend web shop project built using JavaScript and JSON.
 
 - HTML5
 - CSS3
-- JavaScript (Vanilla JS)
+- Bootstrap
+- JavaScript
+- Jquery
 - JSON
+- LocalStorage
+
 
 ## Description
 
